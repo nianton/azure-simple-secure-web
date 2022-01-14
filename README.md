@@ -1,54 +1,27 @@
-# Bicep starter template
-A template repository to get started with an bicep infrastructure-as-code project, including the azure naming module to facilitate naming conventions. For the full reference of the supported resource types, head to the main module repository: **[https://github.com/nianton/azure-naming](https://github.com/nianton/azure-naming#bicep-azure-naming-module)**
+# Simple secure web application deployment on Azure
 
-As in bicep the 'name' property of the resources to be created has to be know compile-time, the naming module cannot be directly consumed to name a resource but only as parameter to a module, we are resorting to have a subscription-level deployment **`azure.deploy.bicep`** which is passing as input parameter to the **`main.bicep`** deployment the naming part.
+[![Deploy To Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnianton%2Fazure-simple-secure-web%2Fmain%2Fdeploy%2Fazure.deploy.json)
 
-```bicep
-targetScope = 'subscription'
+This is a templated deployment of a secure Azure architecture for hosting an web application with frontend and backend components, having all the related PaaS components deployed in a virtual network leveraging Private Endpoints.
 
-param location string
-param applicationName string
-param environment string
-param tags object = {}
+The architecture of the solution is as depicted on the following diagram:
 
-var defaultTags = union({
-  applicationName: applicationName
-  environment: environment
-}, tags)
+![Artitectural Diagram](./assets/azure-deployment-diagram.png?raw=true)
 
-resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
-  name: 'rg-${applicationName}-${environment}'
-  location: location
-  tags: defaultTags
-}
+**NOTE: The virtual network and the respective subnet are not created by this deployment and are expected as input of this template.**
 
-module naming 'modules/naming.module.bicep' = {
-  scope: resourceGroup(rg.name)
-  name: 'NamingDeployment'  
-  params: {
-    suffix: [
-      applicationName
-      environment
-    ]
-    uniqueLength: 6
-    uniqueSeed: rg.id
-  }
-}
+## The role of each component
+* **Frontend Web App** -public facing website / user interface
+* **Backend Web App** -API application
+* **Azure Key Vault** responsible to securely store the secrets/credentials for the PaaS services to be access by the web applications
+* **Application Insights** to provide monitoring and visibility for the health and performance of the application
+* **Azure Cache for Redis** the managed Redis service to keep the session information of Umbraco application
+* **Data Storage Account** the Storage Account that will contain the application data / blob files
+* **Jumphost VM** the virtual machine to have access to the resources in the virtual network
 
-module main 'main.bicep' = {
-  scope: resourceGroup(rg.name)
-  name: 'MainDeployment'
-  params: {
-    location: location
-    naming: naming.outputs.names
-    tags: defaultTags
-  }
-}
+<br>
 
-output resourceGroupName string = rg.name
-output naming object = naming.outputs.names
-```
+---
+Based on the template repository (**[https://github.com/nianton/bicep-starter](https://github.com/nianton/azure-naming#bicep-azure-naming)**) to get started with an bicep infrastructure-as-code project, including the azure naming module to facilitate naming conventions. 
 
-The main deployment is handled by the **`main.bicep`** file, which dictates the resources to be created within the created resource group and is responsible to consume the naming module as input.
-
-In the **`modules`** folder, there is a sample module implementation for a storage account named **`storage.module.bicep`**.
+For the full reference of the supported naming for Azure resource types, head to the main module repository: **[https://github.com/nianton/azure-naming](https://github.com/nianton/azure-naming#bicep-azure-naming-module)**

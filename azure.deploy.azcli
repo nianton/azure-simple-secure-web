@@ -1,0 +1,7 @@
+RESOURCEGROUPNAME="rg-simpleweb-test"
+LOCATION="westeurope"
+
+az deployment sub create \
+  --template-file azure.deploy.bicep \
+  --location $LOCATION \
+  --parameters azure.deploy.parameters.json

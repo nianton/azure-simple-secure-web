@@ -2,19 +2,31 @@
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
+    "resourceGroupName": {
+      "value": "rg-simpleweb-test"
+    },
     "applicationName": {
-      "value": "newapp"
+      "value": "simpleweb"
     },
     "environment": {
-      "value": "dev"
+      "value": "test"
     },
     "location": {
       "value": "westeurope"
     },
+    "jumphostAdministratorPassword": {
+      "value": "QWopASkl;'1"
+    },
+    "vnet": {
+      "value": {
+        "vnetId": "/subscriptions/<SUBSCRIPTION_ID>/resourceGroups/<RESOURCEGROUP_NAME>/providers/Microsoft.Network/virtualNetworks/<VNET_NAME>",
+        "privateEndpointsSnetId": "/subscriptions/<SUBSCRIPTION_ID>/resourceGroups/<RESOURCEGROUP_NAME>/providers/Microsoft.Network/virtualNetworks/<VNET_NAME>/subnets/Apps-Subnet",
+        "devOpsSnetId": "/subscriptions/<SUBSCRIPTION_ID>/resourceGroups/<RESOURCEGROUP_NAME>/providers/Microsoft.Network/virtualNetworks/<VNET_NAME>/subnets/JumpHost-Subnet",
+        "appServiceSnetId": "/subscriptions/<SUBSCRIPTION_ID>/resourceGroups/<RESOURCEGROUP_NAME>/providers/Microsoft.Network/virtualNetworks/<VNET_NAME>/subnets/FrontEnd-Integration-Subnet"
+      }
+    },
     "tags": {
       "value": {
-        "owner": "myself",
-        "costCenter": "personal wallet"
       }
     }
   }

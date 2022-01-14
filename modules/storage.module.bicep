@@ -29,7 +29,6 @@ resource storage 'Microsoft.Storage/storageAccounts@2019-06-01' = {
   kind: kind
   sku: {
     name: skuName
-    tier: startsWith(skuName, 'Standard') ? 'Standard' : 'Premium'
   }
   tags: union(tags, {
     displayName: name
