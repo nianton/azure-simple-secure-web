@@ -20,9 +20,9 @@
     "vnet": {
       "value": {
         "vnetId": "/subscriptions/<SUBSCRIPTION_ID>/resourceGroups/<RESOURCEGROUP_NAME>/providers/Microsoft.Network/virtualNetworks/<VNET_NAME>",
-        "privateEndpointsSnetId": "/subscriptions/<SUBSCRIPTION_ID>/resourceGroups/<RESOURCEGROUP_NAME>/providers/Microsoft.Network/virtualNetworks/<VNET_NAME>/subnets/Apps-Subnet",
-        "devOpsSnetId": "/subscriptions/<SUBSCRIPTION_ID>/resourceGroups/<RESOURCEGROUP_NAME>/providers/Microsoft.Network/virtualNetworks/<VNET_NAME>/subnets/JumpHost-Subnet",
-        "appServiceSnetId": "/subscriptions/<SUBSCRIPTION_ID>/resourceGroups/<RESOURCEGROUP_NAME>/providers/Microsoft.Network/virtualNetworks/<VNET_NAME>/subnets/FrontEnd-Integration-Subnet"
+        "privateEndpointsSnetId": "/subscriptions/<SUBSCRIPTION_ID>/resourceGroups/<RESOURCEGROUP_NAME>/providers/Microsoft.Network/virtualNetworks/<VNET_NAME>/subnets/PrivateEndpoints-Subnet",
+        "appServiceSnetId": "/subscriptions/<SUBSCRIPTION_ID>/resourceGroups/<RESOURCEGROUP_NAME>/providers/Microsoft.Network/virtualNetworks/<VNET_NAME>/subnets/AppService-Integration-Subnet",
+        "devOpsSnetId": "/subscriptions/<SUBSCRIPTION_ID>/resourceGroups/<RESOURCEGROUP_NAME>/providers/Microsoft.Network/virtualNetworks/<VNET_NAME>/subnets/JumpHost-Subnet"
       }
     },
     "tags": {
